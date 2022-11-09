@@ -1,7 +1,7 @@
 struct Edge{
     int index;
     int src, dest;
-    ll val;
+    long long val;
     int residualIndex;
 };
 struct Flow{
@@ -12,8 +12,8 @@ struct Flow{
     vector<vector<int>> edges;
     vector<int> visited;
     bool solved;
-    ll flow;
-    Flow(vector<pair<int, ll>>* edges1, int n1, int s, int d){
+    long long flow;
+    Flow(vector<pair<int, long long>>* edges1, int n1, int s, int d){
         n = n1, src = s, dest = d;
         solved = false;
         flow = 0, iteration = 1;
@@ -22,16 +22,16 @@ struct Flow{
         edges.resize(n);
         for(int i = 0; i < n; i++){
             for(auto j : edges1[i]){
-                Edge e1 = {sz(edgesT), i, j.ff, j.ss, sz(edgesT) + 1};
-                Edge e2 = {sz(edgesT) + 1, j.ff, i, 0, sz(edgesT)};
+                Edge e1 = {sz(edgesT), i, j.first, j.second, sz(edgesT) + 1};
+                Edge e2 = {sz(edgesT) + 1, j.first, i, 0, sz(edgesT)};
                 edgesT.pb(e1);
                 edgesT.pb(e2);
                 edges[i].pb(e1.index);
-                edges[j.ff].pb(e2.index);
+                edges[j.first].pb(e2.index);
             }
         }
     }
-    ll bfs(int root){
+    long long bfs(int root){
         queue<int> qu;
         qu.push(root);
         visited[root] = iteration;
@@ -53,7 +53,7 @@ struct Flow{
         int currNode = dest;
         if(prev[currNode] == -1)
             return 0;
-        ll finalValue = INF;
+        long long finalValue = INF;
         while(prev[currNode] != -1){
             Edge e1 = edgesT[prev[currNode]];
             finalValue = min(finalValue, e1.val);
@@ -71,14 +71,14 @@ struct Flow{
     }
     void EdmondsKarp(){
         while(true){
-            ll f = bfs(src);
+            long long f = bfs(src);
             if(f == 0)
                 return;
             flow += f;
             iteration++;
         }
     }
-    ll maxFlow(){
+    long long maxFlow(){
         if(!solved){
             solved = true;
             EdmondsKarp();

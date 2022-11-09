@@ -3,12 +3,12 @@
 struct BinaryLifting {
 	int n;
 	int maxLog;
-	ll maxRequirement;
+	long long maxRequirement;
 	vector<vector<int>> parent;
 	vector<int> *edges;
 	vector<int> logValues;
 	bool precomputedLogs = false;
-	BinaryLifting(int n1, vector<int> *edges1, ll requirement, int root) {
+	BinaryLifting(int n1, vector<int> *edges1, long long requirement, int root) {
 		n = n1;
 		edges = edges1;
 		parent.resize(n);
@@ -66,7 +66,7 @@ struct BinaryLifting {
 		}
 		return a;
 	}
-	int getLog(ll x) {
+	int getLog(long long x) {
 		return precomputedLogs ? logValues[x] : log2(x);
 	}
 };
@@ -116,9 +116,9 @@ struct LCA {
 template<typename Node, typename Update>
 struct SegTree {
 	vector<Node> tree;
-	vector<ll> arr; // type may change
+	vector<long long> arr; // type may change
 	int n;
-	SegTree(int a_len, vector<ll> &a) { // change if type updated
+	SegTree(int a_len, vector<long long> &a) { // change if type updated
 		arr = a;
 		n = a_len;
 		tree.resize(4 * n); fill(all(tree), Node());
@@ -161,7 +161,7 @@ struct SegTree {
 		ans.merge(l, r);
 		return ans;
 	}
-	void make_update(int index, ll val) {  // pass in as many parameters as required
+	void make_update(int index, long long val) {  // pass in as many parameters as required
 		Update new_update = Update(val); // may change
 		update(0, n - 1, 1, index, new_update);
 	}
@@ -171,11 +171,11 @@ struct SegTree {
 };
 
 struct Node1 {
-	ll val; // may change
+	long long val; // may change
 	Node1() { // Identity element
 		val = -INF;	// may change
 	}
-	Node1(ll p1) {  // Actual Node
+	Node1(long long p1) {  // Actual Node
 		val = p1; // may change
 	}
 	void merge(Node1 &l, Node1 &r) { // Merge two child nodes
@@ -184,8 +184,8 @@ struct Node1 {
 };
 
 struct Update1 {
-	ll val; // may change
-	Update1(ll p1) { // Actual Update
+	long long val; // may change
+	Update1(long long p1) { // Actual Update
 		val = p1; // may change
 	}
 	void apply(Node1 &a) { // apply update to given node
@@ -201,11 +201,11 @@ struct HLD {
 	vector<int> subtree_sum;
 	vector<int> chain;
 	vector<int> label;
-	vector<ll> values;
+	vector<long long> values;
 	SegTree<Node, Update> s1;
 	LCA *lca_object;
 	BinaryLifting *bl_object;
-	HLD(int n1, vector<int> *edges1, int root1, vector<ll> &values1, LCA *lca) {
+	HLD(int n1, vector<int> *edges1, int root1, vector<long long> &values1, LCA *lca) {
 		n = n1;
 		lca_object = lca;
 		bl_object = lca->bl_object;
@@ -279,7 +279,7 @@ struct HLD {
 		}
 		return val;
 	}
-	ll findAnswer(int u, int v) {
+	long long findAnswer(int u, int v) {
 		int lca = lca_object->getLCA(u, v);
 		Node n1 = queryChain(u, lca);
 		Node n2 = queryChain(v, lca);
@@ -290,7 +290,7 @@ struct HLD {
 		ans.merge(merged, n3);
 		return ans.val;
 	}
-	void makeUpdateatIndex(int u, ll val) {
+	void makeUpdateatIndex(int u, long long val) {
 		s1.make_update(label[u], val);
 	}
 };
@@ -298,7 +298,7 @@ struct HLD {
 void solve() {
 	int n, q;
 	cin >> n >> q;
-	vector<ll> values(n);
+	vector<long long> values(n);
 	for (int i = 0; i < n; i++)
 		cin >> values[i];
 	vector<int> *edges = new vector<int>[n];

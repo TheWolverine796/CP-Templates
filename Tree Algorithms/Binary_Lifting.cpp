@@ -1,9 +1,9 @@
 struct BinaryLifting {
     int n;
     int maxLog;
-    ll maxRequirement;
+    long long maxRequirement;
     vector<vector<int>> parent;
-    BinaryLifting(int n1, vector<int> *edges, ll requirement, int root) {
+    BinaryLifting(int n1, vector<int> *edges, long long requirement, int root) {
         n = n1;
         parent.resize(n1);
         maxLog = log2(requirement + 1);

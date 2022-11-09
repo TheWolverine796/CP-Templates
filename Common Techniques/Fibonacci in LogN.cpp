@@ -1,12 +1,12 @@
-vector<vector<ll>> identityMatrix({
+vector<vector<long long>> identityMatrix({
     {1, 0}, 
     {0, 1}
 });
-vector<vector<ll>> result({
+vector<vector<long long>> result({
     {0, 0},
     {0, 0}
 });
-void multiply(vector<vector<ll>> a, vector<vector<ll>> b){
+void multiply(vector<vector<long long>> a, vector<vector<long long>> b){
     for(auto &i : result){
         for(auto &j : i){
             j = 0;
@@ -21,7 +21,7 @@ void multiply(vector<vector<ll>> a, vector<vector<ll>> b){
         }
     }
 }
-void matrixExpo(vector<vector<ll>> matrix, ll n){
+void matrixExpo(vector<vector<long long>> matrix, long long n){
     if(n == 0){
         result = identityMatrix;
         return;
@@ -32,10 +32,10 @@ void matrixExpo(vector<vector<ll>> matrix, ll n){
         multiply(result, matrix);
     }
 }
-ll nthFibonacciNumber(ll n){ // n <= 1e18, F0 = 0, F1 = 1, F2 = 1
+long long nthFibonacciNumber(long long n){ // n <= 1e18, F0 = 0, F1 = 1, F2 = 1
     if(n <= 1)
         return n;
-    vector<vector<ll>> baseMatrix({
+    vector<vector<long long>> baseMatrix({
         {1, 1},
         {1, 0}
     });

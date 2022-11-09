@@ -50,7 +50,7 @@ template <class T> void _print(vector <T> v);
 template <class T> void _print(set <T> v);
 template <class T, class V> void _print(map <T, V> v);
 template <class T> void _print(multiset <T> v);
-template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.ff); cerr << ","; _print(p.ss); cerr << "}";}
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.first); cerr << ","; _print(p.second); cerr << "}";}
 template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
@@ -101,26 +101,26 @@ void solve() {
 		component[i] = i;
 	}
 	vector<int> rank(n, 0);
-	vector<pair<ll, pair<int, int>>> edges;
+	vector<pair<long long, pair<int, int>>> edges;
 	for (int i = 0; i < m; i++) {
 		int a, b, c;
 		cin >> a >> b >> c;
 		edges.push_back({c, {a, b}});
 	}
 	sort(edges.begin(), edges.end());
-	vector<pair<pair<int, int>, ll>> ans;
+	vector<pair<pair<int, int>, long long>> ans;
 	for (auto i : edges) {
 		if (sz(ans) == n - 1)
 			break;
-		int a = i.ss.ff;
-		int b = i.ss.ss;
+		int a = i.second.first;
+		int b = i.second.second;
 		if (get(a, component) != get(b, component)) {
 			merge(a, b, rank, component);
-			ans.push_back({{min(a, b), max(b, a)}, i.ff});
+			ans.push_back({{min(a, b), max(b, a)}, i.first});
 		}
 	}
 	for (auto i : ans) {
-		cout << i.ff.ff << " " << i.ff.ss << " " << i.ss << endl;
+		cout << i.first.first << " " << i.first.second << " " << i.second << endl;
 	}
 }
 

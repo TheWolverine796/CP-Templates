@@ -2,8 +2,8 @@ void dfs(int root, set<pair<int, int>>* edges, vector<int>& path){
     while(sz(edges[root])){
         pair<int, int> p = *edges[root].begin();
         edges[root].erase(p);
-        edges[p.ff].erase({root, p.ss});
-        dfs(p.ff, edges, path);
+        edges[p.first].erase({root, p.second});
+        dfs(p.first, edges, path);
     }
     path.pb(root);
 }

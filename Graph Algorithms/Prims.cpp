@@ -3,7 +3,7 @@
 //MST calculation
 //Storing does not have to be in terms of edge list here
 //We can store a vector of pairs as edges with destination and weight as the parameters
-//The output result obtained will be n-1 pairs showing which are the edges included
+//The output result obtained wilong long be n-1 pairs showing which are the edges included
 #include<bits/stdc++.h>
 #include<algorithm>
 #include<unordered_map>
@@ -37,13 +37,13 @@ bool revsort(ll a, ll b) {return a > b;}
 /*--------------------------------------------------------------------------------------------------------------------------*/
 bool compare1(pair<int, ll> p1, pair<int, ll> p2)
 {
-	return p1.ss > p2.ss;
+	return p1.second > p2.second;
 }
 int get_min_vertex(bool* visited, ll* weight, int n)
 {
 	//can be used if there is some problem with priority queue and the time complexity allowed is O(N^2)
 	int ans = -1;
-	ll min1 = 1e18 + 1;
+	long long min1 = 1e18 + 1;
 	for (int i = 0; i < n; i++)
 	{
 		if (!visited[i] && weight[i] < min1)
@@ -54,40 +54,40 @@ int get_min_vertex(bool* visited, ll* weight, int n)
 	}
 	return ans;
 }
-void prims(vector<pair<int, ll>>* edges, int n)
+void prims(vector<pair<int, long long>>* edges, int n)
 {
 	bool*visited = new bool[n]();
 	int* parent = new int[n];
-	ll*weight = new ll[n];
+	long long*weight = new long long[n];
 	for (int i = 0; i < n; i++)
 		weight[i] = 1e18;
 	parent[0] = -1;
 	weight[0] = 0;
-	priority_queue<pair<int, ll>, vector<pair<int, ll>>, function<bool(pair<int, ll>, pair<int, ll>)>> pq1(compare1);
-	pq1.push(mp(0, ll(0)));
+	priority_queue<pair<int, long long>, vector<pair<int, long long>>, function<bool(pair<int, long long>, pair<int, long long>)>> pq1(compare1);
+	pq1.push(mp(0, long long(0)));
 	for (int i = 0; i < n - 1; i++)
 	{
 		//get_min_vertex which is unvisited and has minimum weight
 		//getting minimum vertex can be done in LogN using priority queue
-		int minVertex = pq1.top().ff;
+		int minVertex = pq1.top().first;
 		pq1.pop();
 		while (visited[minVertex])
 		{
-			minVertex = pq1.top().ff;
+			minVertex = pq1.top().first;
 			pq1.pop();
 		}
 		visited[minVertex] = true;
-		//explore all the neighbours of minVertex and update accordingly
+		//explore along long the neighbours of minVertex and update accordingly
 		for (int j = 0; j < edges[minVertex].size(); j++)
 		{
-			if (visited[edges[minVertex][j].ff])
+			if (visited[edges[minVertex][j].first])
 				continue;
-			if (weight[edges[minVertex][j].ff] > edges[minVertex][j].ss)
+			if (weight[edges[minVertex][j].first] > edges[minVertex][j].second)
 			{
 				//update the current weigth of the neighbour and change its parent also
-				weight[edges[minVertex][j].ff] = edges[minVertex][j].ss;
-				parent[edges[minVertex][j].ff] = minVertex;
-				pq1.push(mp(edges[minVertex][j].ff, weight[edges[minVertex][j].ff]));
+				weight[edges[minVertex][j].first] = edges[minVertex][j].second;
+				parent[edges[minVertex][j].first] = minVertex;
+				pq1.push(mp(edges[minVertex][j].first, weight[edges[minVertex][j].first]));
 			}
 		}
 	}
@@ -104,13 +104,13 @@ int main()
 #endif
 	int n, e;
 	cin >> n >> e;
-	vector<pair<int, ll>> *edges = new vector<pair<int, ll>>[n];
+	vector<pair<int, long long>> *edges = new vector<pair<int, long long>>[n];
 	//input is taken considering 0 based indexing
 	//make changes accordingly
 	for (int i = 0; i < e; i++)
 	{
 		int a, b;
-		ll weight;
+		long long weight;
 		cin >> a >> b >> weight;
 		edges[a].pb(mp(b, weight));
 		edges[b].pb(mp(a, weight));

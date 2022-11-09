@@ -1,5 +1,5 @@
 bool compare(pair<pair<int, int>, int>& a, pair<pair<int, int>, int>& b){
-    return a.ff.ss < b.ff.ss;
+    return a.first.second < b.first.second;
 }
 void update(int index, vector<int>& bit, int value){
     for(; index < sz(bit); index += (index & (-index))){
@@ -26,9 +26,9 @@ vector<int> distinctQueries(int n, int q, vector<int>& arr, vector<pair<int, int
     vector<int> lastIndex(sz(compression), -1);
     vector<pair<pair<int, int>, int>> tempQueries(q);
     for(int i = 0; i < q; i++){
-        tempQueries[i].ff.ff = queries[i].ff + 1;
-        tempQueries[i].ff.ss = queries[i].ss + 1;
-        tempQueries[i].ss = i;
+        tempQueries[i].first.first = queries[i].first + 1;
+        tempQueries[i].first.second = queries[i].second + 1;
+        tempQueries[i].second = i;
     }
     vector<int> ans(q);
     sort(all(tempQueries), compare);
@@ -40,9 +40,9 @@ vector<int> distinctQueries(int n, int q, vector<int>& arr, vector<pair<int, int
         }
         lastIndex[arr[i]] = i;
         update(i + 1, bit, 1);
-        while(num < q && tempQueries[num].ff.ss == i + 1){
-            int index = tempQueries[num].ss;
-            ans[index] = query(i + 1, bit) - query(tempQueries[num].ff.ff - 1, bit);
+        while(num < q && tempQueries[num].first.second == i + 1){
+            int index = tempQueries[num].second;
+            ans[index] = query(i + 1, bit) - query(tempQueries[num].first.first - 1, bit);
             num++;
         }
     }

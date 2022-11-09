@@ -4,11 +4,11 @@
 template<typename Node>
 struct SparseTable {
 	vector<vector<Node>> table;
-	vector<ll> logValues;
+	vector<long long> logValues;
 	int n;
 	int maxLog;
-	vector<ll> a;
-	SparseTable(int n1, vector<ll> &arr) {
+	vector<long long> a;
+	SparseTable(int n1, vector<long long> &arr) {
 		n = n1;
 		a = arr;
 		table.resize(n);
@@ -52,11 +52,11 @@ struct SparseTable {
 	}
 };
 struct Node1 {
-	ll val; // store more info if required
+	long long val; // store more info if required
 	Node1() { // Identity Element
 		val = 0;
 	}
-	Node1(ll v) {
+	Node1(long long v) {
 		val = v;
 	}
 	void merge(Node1 &l, Node1 &r) {

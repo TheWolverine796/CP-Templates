@@ -50,7 +50,7 @@ template <class T> void _print(vector <T> v);
 template <class T> void _print(set <T> v);
 template <class T, class V> void _print(map <T, V> v);
 template <class T> void _print(multiset <T> v);
-template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.ff); cerr << ","; _print(p.ss); cerr << "}";}
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.first); cerr << ","; _print(p.second); cerr << "}";}
 template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
@@ -80,30 +80,30 @@ void precision(int a) {cout << setprecision(a) << fixed;}
 void solve() {
 	int n, m;
 	cin >> n >> m;
-	vector<pair<int, ll>> *edges = new vector<pair<int, ll>>[n];
+	vector<pair<int, long long>> *edges = new vector<pair<int, long long>>[n];
 	for (int i = 0; i < m; i++) {
 		int a, b, c;
 		cin >> a >> b >> c;
 		edges[a].pb({b, c});
 		edges[b].pb({a, c});
 	}
-	set<pair<ll, int>> pq;
-	vector<ll> dist(n, INF);
+	set<pair<long long, int>> pq;
+	vector<long long> dist(n, INF);
 	dist[0] = 0;
 	vector<bool> visited(n);
 	vector<int> parent(n, -1);
 	pq.insert({0, 0});
 	for (int i = 0; i < n; i++) {
-		pair<ll, int> top = *pq.begin();
+		pair<long long, int> top = *pq.begin();
 		pq.erase(top);
-		int best = top.ss;
+		int best = top.second;
 		visited[best] = true;
 		for (auto i : edges[best]) {
-			if ((!visited[i.ff]) && dist[i.ff] > i.ss) {
-				pq.erase({dist[i.ff], i.ff});
-				dist[i.ff] = i.ss;
-				pq.insert({dist[i.ff], i.ff});
-				parent[i.ff] = best;
+			if ((!visited[i.first]) && dist[i.first] > i.second) {
+				pq.erase({dist[i.first], i.first});
+				dist[i.first] = i.second;
+				pq.insert({dist[i.first], i.first});
+				parent[i.first] = best;
 			}
 		}
 	}

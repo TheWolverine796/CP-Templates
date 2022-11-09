@@ -6,10 +6,10 @@
 template<typename Node, typename Update>
 struct SegTree {
 	vector<Node> tree;
-	vector<ll> arr; // type may change
+	vector<long long> arr; // type may change
 	int n;
 	int s;
-	SegTree(int a_len, vector<ll> &a) { // change if type updated
+	SegTree(int a_len, vector<long long> &a) { // change if type updated
 		arr = a;
 		n = a_len;
 		s = 1;
@@ -55,7 +55,7 @@ struct SegTree {
 		ans.merge(l, r);
 		return ans;
 	}
-	void make_update(int index, ll val) {  // pass in as many parameters as required
+	void make_update(int index, long long val) {  // pass in as many parameters as required
 		Update new_update = Update(val); // may change
 		update(0, n - 1, 1, index, new_update);
 	}
@@ -65,11 +65,11 @@ struct SegTree {
 };
 
 struct Node1 {
-	ll val; // may change
+	long long val; // may change
 	Node1() { // Identity element
 		val = 0;	// may change
 	}
-	Node1(ll p1) {  // Actual Node
+	Node1(long long p1) {  // Actual Node
 		val = p1; // may change
 	}
 	void merge(Node1 &l, Node1 &r) { // Merge two child nodes
@@ -78,8 +78,8 @@ struct Node1 {
 };
 
 struct Update1 {
-	ll val; // may change
-	Update1(ll p1) { // Actual Update
+	long long val; // may change
+	Update1(long long p1) { // Actual Update
 		val = p1; // may change
 	}
 	void apply(Node1 &a) { // apply update to given node

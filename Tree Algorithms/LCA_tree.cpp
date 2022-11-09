@@ -1,11 +1,11 @@
 struct BinaryLifting {
 	int n;
 	int maxLog;
-	ll maxRequirement;
+	long long maxRequirement;
 	vector<vector<int>> parent;
 	vector<int> logValues;
 	bool precomputedLogs = false;
-	BinaryLifting(int n1, vector<int> *edges, ll requirement, int root) {
+	BinaryLifting(int n1, vector<int> *edges, long long requirement, int root) {
 		n = n1;
 		parent.resize(n);
 		maxLog = log2(requirement + 1);
@@ -61,7 +61,7 @@ struct BinaryLifting {
 		}
 		return a;
 	}
-	inline int getLog(ll x) {
+	inline int getLog(long long x) {
 		return precomputedLogs ? logValues[x] : log2(x);
 	}
 };
