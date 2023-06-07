@@ -89,3 +89,7 @@ struct Update1 {
     a.val = val;         // may change
   }
 };
+
+// SegTree<Node1, Update1> mysegtree(n, v);
+// mysegtree.make_query(l, r).val;
+// mysegtree.make_update(ind, val);
